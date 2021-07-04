@@ -2,15 +2,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
+import AddPet from "../addPet/addPet";
 
 class PetTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+        pet: {},
+    };
   }
 
   render() {
-    const { pets, user } = this.props;
+    const { pets, user, isEdit } = this.props;
+    const { pet } = this.state;
     const breed = this.props.match.params.id;
     const filteredPets = pets && pets.filter((pet) => pet.breed === breed);
     const logout = () => {
@@ -19,6 +23,15 @@ class PetTable extends Component {
         type: "RESET_STORE",
       });
     };
+    const editPet = (pet) => {
+        this.setState({
+            pet: pet,
+        })
+        this.props.dispatch({
+            type: 'EDIT_PET',
+            isEdit: true,
+        })
+    }
     return (
       <div className="breed-table">
         <h4 className="add-pet">
@@ -33,6 +46,7 @@ class PetTable extends Component {
             Pets in category: <b>{breed}</b>{" "}
           </h5>
         </div>
+        {isEdit && <AddPet isEdit={true} pet={pet}/>}
         <Table bordered hover responsive striped>
           <thead>
             <tr>
@@ -56,7 +70,7 @@ class PetTable extends Component {
                     <td>{pet.address}</td>
                     <td>{pet.phone}</td>
                     <td>
-                      <button>Edit</button>
+                      <button onClick={() => editPet(pet)}>Edit</button>
                     </td>
                   </tr>
                 );
@@ -72,6 +86,7 @@ const mapStateToProps = (state) => {
   return {
     pets: state.app.pets,
     user: state.app.loggedInUser,
+    isEdit: state.app.isEdit,
   };
 };
 

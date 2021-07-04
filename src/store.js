@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
 
 const initialState = {
+  isEdit: false,
   pets: [
     {
       id: 0,
@@ -22,7 +23,7 @@ const initialState = {
       phone: "9789890989",
     },
     {
-      id: 0,
+      id: 2,
       name: "Puppy1",
       breed: "Husky",
       age: 5,
@@ -42,17 +43,31 @@ const AppReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
-      case "ADD_NEW_PET":
-        return {
-          ...state,
-          pets: [
-            ...state.pets,
-            action.newPet,
-          ]
-        };
+    case "ADD_NEW_PET":
+      return {
+        ...state,
+        pets: [...state.pets, action.newPet],
+        isEdit: false,
+      };
+    case "EDIT_PET":
+      return {
+        ...state,
+        isEdit: action.isEdit,
+      };
+
+    case "UPDATE_EXISTING_PET":
+      const petToUpdate = action.pet;
+      let pets = state.pets;
+      const idx = pets.findIndex((x) => x.id === petToUpdate.id);
+      pets[idx] = petToUpdate;
+      return {
+        ...state,
+        pets: pets,
+        isEdit: false,
+      };
     case "RESET_STORE":
       return {
-        ...initialState
+        ...initialState,
       };
     default:
       return state;
