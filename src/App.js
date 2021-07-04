@@ -1,12 +1,26 @@
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import { connect } from 'react-redux'
 import Login from './login/login';
+import { Route, Switch, Link, NavLink, Redirect } from "react-router-dom";
+import dashBoard from './dashboard/dashboard';
 
-function App() {
-  return (
-    <div className="App">
-      <Login />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/dashboard" component={dashBoard} />
+      </Switch>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect(
+  state=>({
+
+  }),
+  {}
+)(App)
