@@ -46,7 +46,7 @@ class Login extends Component {
             <Form.Label>userName</Form.Label>
             <Form.Control
               autoFocus
-              type="userName"
+              type="text"
               value={userName}
               name="userName"
               onChange={(e) => handleChange(e)}

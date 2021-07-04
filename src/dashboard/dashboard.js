@@ -35,7 +35,7 @@ class Dashboard extends Component {
     });
     return (
       <div className="breed-table">
-        <AddPet />
+        <AddPet history={this.props.history} />
         <Table bordered hover responsive striped>
           <thead>
             <tr>

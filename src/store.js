@@ -5,32 +5,32 @@ const initialState = {
   pets: [
     {
       id: 0,
-      name: 'Puppy',
-      breed: 'Husky',
+      name: "Puppy",
+      breed: "Husky",
       age: 5,
       price: 5000,
-      address: 'hyderabad',
-      phone: '9789890989'
+      address: "hyderabad",
+      phone: "9789890989",
     },
     {
       id: 1,
-      name: 'Maxi',
-      breed: 'Labdoge',
+      name: "Maxi",
+      breed: "Labdoge",
       age: 5,
       price: 5000,
-      address: 'hyderabad',
-      phone: '9789890989'
+      address: "hyderabad",
+      phone: "9789890989",
     },
     {
       id: 0,
-      name: 'Puppy1',
-      breed: 'Husky',
+      name: "Puppy1",
+      breed: "Husky",
       age: 5,
       price: 5000,
-      address: 'hyderabad',
-      phone: '9789890989'
+      address: "hyderabad",
+      phone: "9789890989",
     },
-  ]
+  ],
 };
 
 const AppReducer = (state = initialState, action) => {
@@ -41,6 +41,10 @@ const AppReducer = (state = initialState, action) => {
         loggedInUser: {
           ...action.payload,
         },
+      };
+    case "RESET_STORE":
+      return {
+        state: {},
       };
     default:
       return state;

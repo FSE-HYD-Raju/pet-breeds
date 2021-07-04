@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Form from "react-bootstrap/Form";
 import "./addPet.css";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class AddPet extends React.Component {
   constructor() {
@@ -19,14 +20,32 @@ class AddPet extends React.Component {
 
   render() {
     const { user } = this.props;
+    const logout = () => {
+      console.log("====PROPS", this.props)
+      this.props.history.push("/");
+      this.props.dispatch({
+        type: 'RESET_STORE'
+      })
+    };
     return (
-      <div className="add-pet">
-        <div>
-          <h3>Hello, {user.userName}</h3>
+      <div>
+        <h4 className="add-pet">
+          Hello, {user.userName}
+          <br />
+          <a
+            href="javascript:void(;;)"
+            className="logout"
+            onClick={() => logout()}
+          >
+            Logout
+          </a>
+        </h4>
+        <div className="dashoard-heading">
+          <h5 className="title">Pets Dashboard</h5>
+          <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+            Add new pet
+          </Button>
         </div>
-        <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-          Add new pet
-        </Button>
         <Form>
           <Modal show={this.state.showHide}>
             <Modal.Header>
