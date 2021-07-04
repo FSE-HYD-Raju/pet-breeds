@@ -42,9 +42,18 @@ const AppReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+      case "ADD_NEW_PET":
+        console.log("-----------------------", state)
+        return {
+          ...state,
+          pets: [
+            ...state.pets,
+            action.newPet,
+          ]
+        };
     case "RESET_STORE":
       return {
-        state: {},
+        ...initialState
       };
     default:
       return state;

@@ -43,7 +43,7 @@ class Login extends Component {
         <h2 className="heading">Login</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group size="lg" controlId="userName">
-            <Form.Label>userName</Form.Label>
+            <Form.Label>User Name</Form.Label>
             <Form.Control
               autoFocus
               type="text"
