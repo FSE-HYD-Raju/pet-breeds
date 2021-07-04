@@ -43,7 +43,6 @@ const AppReducer = (state = initialState, action) => {
         },
       };
       case "ADD_NEW_PET":
-        console.log("-----------------------", state)
         return {
           ...state,
           pets: [

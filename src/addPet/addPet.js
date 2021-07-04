@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import Form from "react-bootstrap/Form";
 import "./addPet.css";
 import { connect } from "react-redux";
-import { Field, SubmissionError, reduxForm, formValueSelector } from "redux-form";
 
 class AddPet extends React.Component {
   constructor() {
@@ -22,20 +21,24 @@ class AddPet extends React.Component {
 
   handleSubmit() {
     const { name, breed, age, price, address, phone } = this.state;
-    const newPet = {
-      id: this.props && this.props.pets && this.props.pets.length,
-      name: name,
-      breed: breed,
-      age: age,
-      price: price,
-      address: address,
-      phone: phone,
+    if (name && breed) {
+      const newPet = {
+        id: this.props && this.props.pets && this.props.pets.length,
+        name: name,
+        breed: breed,
+        age: age,
+        price: price,
+        address: address,
+        phone: phone,
+      }
+      this.props.dispatch({
+        type: 'ADD_NEW_PET',
+        newPet: newPet
+      })
+      this.setState({ showHide: !this.state.showHide });
+    } else {
+      alert('Required fields are missing!')
     }
-    this.props.dispatch({
-      type: 'ADD_NEW_PET',
-      newPet: newPet
-    })
-    this.setState({ showHide: !this.state.showHide });
   }
 
   handleModalShowHide() {
@@ -44,8 +47,7 @@ class AddPet extends React.Component {
 
   render() {
     const { user } = this.props;
-    const logout = (e) => {
-      e.preventDefault();
+    const logout = () => {
       this.props.history.push("/");
       this.props.dispatch({
         type: "RESET_STORE",
@@ -57,9 +59,9 @@ class AddPet extends React.Component {
           Hello, {user && user.userName}
           <br />
           <a
-            href="javascript:void(0)"
+            href="/login"
             className="logout"
-            onClick={(e) => logout(e)}
+            onClick={() => logout()}
           >
             Logout
           </a>
@@ -77,27 +79,27 @@ class AddPet extends React.Component {
             </Modal.Header>
             <Modal.Body>
               <Form.Group>
-                <Form.Label>Pet Name</Form.Label>
+                <Form.Label>Pet Name*</Form.Label>
                 <Form.Control type="text" name="name" placeholder="Name" onChange={(e) => this.handleChange(e)} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Breed Name</Form.Label>
+                <Form.Label>Breed Name*</Form.Label>
                 <Form.Control type="text" name="breed" placeholder="Breed" onChange={(e) => this.handleChange(e)} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Age:</Form.Label>
+                <Form.Label>Age</Form.Label>
                 <Form.Control type="text" name="age" placeholder="Age"  onChange={(e) => this.handleChange(e)} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Price:</Form.Label>
+                <Form.Label>Price</Form.Label>
                 <Form.Control type="number" name="price" placeholder="Price"  onChange={(e) => this.handleChange(e)} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Address:</Form.Label>
+                <Form.Label>Address</Form.Label>
                 <Form.Control type="text" name="address" placeholder="Address"  onChange={(e) => this.handleChange(e)} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Phone:</Form.Label>
+                <Form.Label>Phone</Form.Label>
                 <Form.Control type="number" name="phone" placeholder="contact number"  onChange={(e) => this.handleChange(e)} />
               </Form.Group>
             </Modal.Body>
