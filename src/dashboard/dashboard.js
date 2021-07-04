@@ -13,6 +13,10 @@ class Dashboard extends Component {
     };
   }
 
+  showPets(breedName) {
+    this.props.history.push(`/pet-tabel/${breedName}`);
+  }
+
   render() {
     const { pets } = this.props;
     let pBreeds = [];
@@ -54,7 +58,7 @@ class Dashboard extends Component {
                     <td>{breed.breedName}</td>
                     <td>{breed.noOfPetsAvailable}</td>
                     <td>
-                      <a href="#">show pets</a>
+                      <a className="show-pets-link"  onClick={() => this.showPets(breed.breedName)}>show pets</a>
                     </td>
                   </tr>
                 );
