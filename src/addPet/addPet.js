@@ -113,7 +113,7 @@ class AddPet extends React.Component {
         <Form>
           <Modal show={this.state.showHide}>
             <Modal.Header>
-              <Modal.Title>Add Pet</Modal.Title>
+              <Modal.Title>{isEdit ? 'Update Pet' : 'Add New Pet'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form.Group>
