@@ -23,6 +23,9 @@ class PetTable extends Component {
         type: "RESET_STORE",
       });
     };
+    const backToDashBoard = () => {
+      this.props.history.push("/dashboard");
+    }
     const editPet = (pet) => {
         this.setState({
             pet: pet,
@@ -45,6 +48,7 @@ class PetTable extends Component {
           <h5 className="title">
             Pets in category: <b>{breed}</b>{" "}
           </h5>
+          <a className="show-pets-link"  onClick={() => backToDashBoard()}>Back to Dashboard</a>
         </div>
         {isEdit && <AddPet isEdit={true} pet={pet}/>}
         <Table bordered hover responsive striped>
